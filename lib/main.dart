@@ -40,17 +40,15 @@ class _QuizPageState extends State<QuizPage> {
 //    ),
   ];
 
-  int questionNumber = 0;
-
   goToNextQuestion(bool answerGiven) {
-    bool correctAnswer = quizBrain.questions[questionNumber].answer;
+    bool correctAnswer = quizBrain.getAnswer();
     if (correctAnswer == answerGiven) {
       print('Correct Answer');
     } else {
       print('Incorrect Answer');
     }
     setState(() {
-      questionNumber++;
+      quizBrain.nextQuestion();
     });
   }
 
@@ -66,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questions[questionNumber].text,
+                quizBrain.getText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
