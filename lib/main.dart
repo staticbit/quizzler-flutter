@@ -29,25 +29,26 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-//    Icon(
-//      Icons.check,
-//      color: Colors.green,
-//    ),
-//    Icon(
-//      Icons.close,
-//      color: Colors.red,
-//    ),
-  ];
+  List<Icon> scoreKeeper = [];
 
-  goToNextQuestion(bool answerGiven) {
+  checkAnswer(bool answerGiven) {
     bool correctAnswer = quizBrain.getAnswer();
-    if (correctAnswer == answerGiven) {
-      print('Correct Answer');
-    } else {
-      print('Incorrect Answer');
-    }
     setState(() {
+      if (correctAnswer == answerGiven) {
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
       quizBrain.nextQuestion();
     });
   }
@@ -89,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                goToNextQuestion(true);
+                checkAnswer(true);
               },
             ),
           ),
@@ -108,7 +109,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                goToNextQuestion(false);
+                checkAnswer(false);
               },
             ),
           ),
